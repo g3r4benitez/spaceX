@@ -1,0 +1,9 @@
+dependency-injector==4.37.0
+fastapi==0.70.0
+mock==4.0.3
+psycopg2-binary==2.9.2
+pydantic==1.8.2
+uvicorn==0.15.0
+celery==5.2.1
+oauth2client==4.1.3
+
