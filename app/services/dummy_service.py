@@ -1,2 +1,0 @@
-class DummyService:
-    pass
