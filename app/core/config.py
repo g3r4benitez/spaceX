@@ -18,4 +18,7 @@ TRELLO_BOARD: str = _config("TRELLO_BOARD", cast=str)
 TRELLO_LIST_TODO: str = _config("TRELLO_LIST_TODO", cast=str)
 TRELLO_LIST_GENERIC: str = _config("TRELLO_LIST_GENERIC", cast=str)
 TRELLO_LABEL_BUG: str = _config("TRELLO_LABEL_BUG", cast=str)
+TRELLO_LABEL_MAINTENANCE: str = _config("TRELLO_LABEL_MAINTENANCE", cast=str)
+TRELLO_LABEL_RESEARCH: str = _config("TRELLO_LABEL_RESEARCH", cast=str)
+TRELLO_LABEL_TEST: str = _config("TRELLO_LABEL_TEST", cast=str)
 

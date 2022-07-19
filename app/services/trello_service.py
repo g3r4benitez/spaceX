@@ -2,9 +2,14 @@ import random
 
 import requests
 from app.core.config import (TRELLO_KEY, TRELLO_TOKEN, TRELLO_BOARD, TRELLO_URL, TRELLO_LIST_TODO, TRELLO_LABEL_BUG,
-TRELLO_LIST_GENERIC)
-from app.models.ticket import Bug, Issue
+TRELLO_LIST_GENERIC, TRELLO_LABEL_MAINTENANCE, TRELLO_LABEL_RESEARCH, TRELLO_LABEL_TEST)
+from app.models.ticket import Bug, Issue, Task
 
+LABELS = {
+    'Maintenance': TRELLO_LABEL_MAINTENANCE,
+    'Research': TRELLO_LABEL_RESEARCH,
+    'Test': TRELLO_LABEL_TEST
+}
 
 class TrelloService:
 
@@ -29,8 +34,6 @@ class TrelloService:
             },
 
         )
-        print(r.status_code)
-        print(r.text)
         return r.status_code
 
     def create_issue(self, issue: Issue):
@@ -44,14 +47,9 @@ class TrelloService:
             },
 
         )
-        print(r.status_code)
-        print(r.text)
         return r.status_code
 
     def create_bug(self, bug: Bug):
-
-        # get random member
-
         r = requests.post(
             f"{self.url_base}/cards?key={TRELLO_KEY}&token={TRELLO_TOKEN}&idBoard={TRELLO_BOARD}",
             data={
@@ -65,6 +63,20 @@ class TrelloService:
 
         )
         return r.status_code
+
+    def create_task(self, task: Task):
+        label = LABELS[task.category]
+        r = requests.post(
+            f"{self.url_base}/cards?key={TRELLO_KEY}&token={TRELLO_TOKEN}&idBoard={TRELLO_BOARD}",
+            data={
+                'name': task.title,
+                'idList': TRELLO_LIST_GENERIC,
+                'idBoard': TRELLO_BOARD,
+                'idLabels': [label, ],
+            },
+        )
+        return r.status_code
+
 
     def get_random_member(self):
         r = requests.get(

@@ -2,7 +2,7 @@ import json
 from fastapi import APIRouter, Response
 from starlette import status
 from app.services.trello_service import trello_service
-from app.models.ticket import Ticket, Bug, Issue
+from app.models.ticket import Ticket, Bug, Issue, Task
 
 router = APIRouter()
 
@@ -26,7 +26,9 @@ async def create_ticket(
             trello_service.create_bug(bug)
             return bug
         elif ticket.type=='task':
-            return ticket
+            task = Task.create_from_ticket(ticket)
+            trello_service.create_task(task)
+            return task
         else:
             response.status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
             response.body = "type is not valid"

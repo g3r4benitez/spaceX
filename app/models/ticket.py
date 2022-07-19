@@ -73,6 +73,32 @@ class Task():
     _title: str
     _category: str
 
+    def __init__(self, title, category):
+        self.title = title
+        self.category = category
+
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, title_value):
+        if title_value and len(title_value):
+            self._title = title_value
+        else:
+            raise ValueError("title: 'title' is required")
+
+    @property
+    def category(self):
+        return self._category
+
+    @category.setter
+    def category(self, category_value):
+        if category_value in ("Maintenance", "Research", "Test"):
+            self._category = category_value
+        else:
+            raise ValueError("category: category should be one of these options: Maintenance, Research, Test")
+
     @classmethod
     def create_from_ticket(cls, ticket: Ticket):
         return cls(ticket.title, ticket.category)
