@@ -1,8 +1,9 @@
 import random
 
 import requests
-from app.core.config import TRELLO_KEY, TRELLO_TOKEN, TRELLO_BOARD, TRELLO_URL, TRELLO_LIST_TODO, TRELLO_LABEL_BUG
-from app.models.ticket import Bug
+from app.core.config import (TRELLO_KEY, TRELLO_TOKEN, TRELLO_BOARD, TRELLO_URL, TRELLO_LIST_TODO, TRELLO_LABEL_BUG,
+TRELLO_LIST_GENERIC)
+from app.models.ticket import Bug, Issue
 
 
 class TrelloService:
@@ -32,12 +33,12 @@ class TrelloService:
         print(r.text)
         return r.status_code
 
-    def create_issue(self, name: str, desc: str):
+    def create_issue(self, issue: Issue):
         r = requests.post(
             f"{self.url_base}/cards?key={TRELLO_KEY}&token={TRELLO_TOKEN}&idBoard={TRELLO_BOARD}",
             data={
-                'name': name,
-                'desc': desc,
+                'name': issue.title,
+                'desc': issue.description,
                 'idList': TRELLO_LIST_TODO,
                 'idBoard': TRELLO_BOARD
             },
@@ -56,7 +57,7 @@ class TrelloService:
             data={
                 'name': bug.title,
                 'desc': bug.description,
-                'idList': TRELLO_LIST_TODO,
+                'idList': TRELLO_LIST_GENERIC,
                 'idBoard': TRELLO_BOARD,
                 'idLabels': [TRELLO_LABEL_BUG,],
                 'idMembers': [self.get_random_member(),]

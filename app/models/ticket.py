@@ -1,4 +1,5 @@
 import random
+from typing import Optional
 from pydantic import BaseModel, Field
 
 
@@ -7,15 +8,38 @@ ID_CHARACTERS = 'ABCDEFGHJKLMNPQRSTUVWXYZ'
 
 
 class Ticket(BaseModel):
-    type: str = Field("Type", max_length=10)
-    title: str = Field("Title", max_length=255)
-    description: str = Field("Description")
-    category: str = Field("Description")
+    type: Optional[str] = Field(max_length=10)
+    title: Optional[str] = Field(max_length=255)
+    description: Optional[str] = Field()
+    category: Optional[str] = Field()
 
 
 class Issue(object):
-    title: str = Field("Title", max_length=255)
-    description: str = Field("Description", max_length=255)
+    _title: str
+    _description: str
+
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, title_value):
+        if title_value and len(title_value):
+            self._title = title_value
+        else:
+            raise ValueError("title: 'title' is required")
+
+    @property
+    def descripton(self):
+        return self._description
+
+    @descripton.setter
+    def description(self, description_value):
+        if description_value and len(description_value):
+            self._description = description_value
+        else:
+            raise ValueError("description: 'description' is required")
+
 
     def __init__(self, title, description):
         self.title = title
@@ -26,9 +50,7 @@ class Issue(object):
         return cls(ticket.title, ticket.description)
 
 
-
 class Bug(Issue):
-    label: str
 
     @staticmethod
     def generate_title():
@@ -40,14 +62,16 @@ class Bug(Issue):
     def create_from_ticket(cls, ticket: Ticket):
         return cls(Bug.generate_title(), ticket.description )
 
+    def __str__(self):
+        return {
+            "title": self.title,
+            "description": self.description
+        }
+
 
 class Task():
-    title: str = Field("Title", max_length=255)
-    category: str = Field("Category")
-
-    def __init__(self, title, category):
-        self.title = title
-        self.category = category
+    _title: str
+    _category: str
 
     @classmethod
     def create_from_ticket(cls, ticket: Ticket):

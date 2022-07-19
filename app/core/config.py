@@ -16,5 +16,6 @@ TRELLO_KEY: str = _config("TRELLO_KEY", cast=str)
 TRELLO_TOKEN: str = _config("TRELLO_TOKEN", cast=str)
 TRELLO_BOARD: str = _config("TRELLO_BOARD", cast=str)
 TRELLO_LIST_TODO: str = _config("TRELLO_LIST_TODO", cast=str)
+TRELLO_LIST_GENERIC: str = _config("TRELLO_LIST_GENERIC", cast=str)
 TRELLO_LABEL_BUG: str = _config("TRELLO_LABEL_BUG", cast=str)
 
