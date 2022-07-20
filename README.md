@@ -1,5 +1,6 @@
 # The Space-x Challenge
-A bridge between the developers team and management team  
+A bridge between the developers team and management team, it is an proposal solution for the challenge 
+https://doc.clickup.com/p/h/e12h-16043/f3e54f9ffd37f57/e12h-16043
 
 ## About the software solution
 it is an API based on FastApi
