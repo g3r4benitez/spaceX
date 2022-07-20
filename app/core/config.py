@@ -4,7 +4,7 @@ from starlette.config import Config
 ROOT_DIR = os.getcwd()
 _config = Config(os.path.join(ROOT_DIR, ".env"))
 APP_VERSION = "0.0.1"
-APP_NAME = "APP_name"
+APP_NAME = "spaceX"
 API_PREFIX = "/api"
 
 # Env vars
