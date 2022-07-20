@@ -6,6 +6,20 @@ it is an API based on FastApi
 
 ## How to run the project
 
+This project is able to run by 2 ways, using docker or run from the localhost with python
+
+For both option the iniatial steps are: 
+
+a. Clone the project from github
+
+b. Create a configuration file: 
+
+
+
+**Trello Board**
+This board is used to receive all task created with this project, this is a public board
+https://trello.com/invite/b/Dn8U4JwH/8848416402fe7c94c0c5e80023cee919/welcome-board
+
 ### Option 1: Docker
 1. Clone Project
 2. run the command: 
