@@ -12,15 +12,26 @@ For both option the iniatial steps are:
 
 a. Clone the project from github
 
+`
+git clone git@github.com:g3r4benitez/spaceX.git
+`
+
 b. Create a configuration file: 
 
+`cp .env.example .env`
 
 
 **Trello Board**
 This board is used to receive all task created with this project, this is a public board
 https://trello.com/invite/b/Dn8U4JwH/8848416402fe7c94c0c5e80023cee919/welcome-board
 
-### Option 1: Docker
+
+### Option 1: 
+
+#### Requirements
+Docker and Docker-compose
+
+#### Steps to run the project 
 1. Clone Project
 2. run the command: 
     Docker-compose up
@@ -29,19 +40,21 @@ https://trello.com/invite/b/Dn8U4JwH/8848416402fe7c94c0c5e80023cee919/welcome-bo
 Example 1: 
 
 `
-curl \ 
--h "Content-Type: application/json" \
--d '{"type": "issue", "title": "Send Message", "description": "Let pilots send messages to Central"}' \
-http://0.0.0.0:8000/ticket
+curl --location --request POST 'http://0.0.0.0:8000/tasks' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "type": "issue", 
+    "title": "Send Message", 
+    "description": "Let pilots send messages to Central"
+}'
+`
 
 4. Also you can try the API using the documentation by Swagger UI, try it in [http://localhost:8000/docs](http://localhost:8000/docs)
-`
+
 
 ### Option 2: VirtualEnv + Local
 
-
 #### Requirements
-
 Python 3.9+
 
 #### Installation
@@ -62,18 +75,21 @@ pip install -r requirements.txt
 1. Start your app with:
 
 ```sh
-python3 -m uvicorn app.main:app --reload --port 9009
+python3 -m uvicorn app.main:app --reload --port 8000
 ```
 
-2. Go to [http://localhost:9009/docs](http://localhost:9009/docs).
+2. Go to [http://localhost:8000/docs](http://localhost:8000/docs).
    Here you can try the api using the documentation provided by Swagger UI
 
 3. Make requests
 Example: 
 
 `
-curl \ 
--h "Content-Type: application/json" \
--d '{"type": "issue", "title": "Send Message", "description": "Let pilots send messages to Central"}' \
-http://0.0.0.0:8000/ticket
+curl --location --request POST 'http://0.0.0.0:8000/tasks' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "type": "issue", 
+    "title": "Send Message", 
+    "description": "Let pilots send messages to Central"
+}'
 `

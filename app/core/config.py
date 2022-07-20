@@ -22,3 +22,9 @@ TRELLO_LABEL_MAINTENANCE: str = _config("TRELLO_LABEL_MAINTENANCE", cast=str)
 TRELLO_LABEL_RESEARCH: str = _config("TRELLO_LABEL_RESEARCH", cast=str)
 TRELLO_LABEL_TEST: str = _config("TRELLO_LABEL_TEST", cast=str)
 
+LABELS = {
+    'Maintenance': TRELLO_LABEL_MAINTENANCE,
+    'Research': TRELLO_LABEL_RESEARCH,
+    'Test': TRELLO_LABEL_TEST
+}
+

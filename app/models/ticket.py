@@ -14,9 +14,9 @@ class Ticket(BaseModel):
     category: Optional[str] = Field()
 
 
-class Issue(object):
+class BaseTask(object):
     _title: str
-    _description: str
+    id: str
 
     @property
     def title(self):
@@ -29,6 +29,18 @@ class Issue(object):
         else:
             raise ValueError("title: 'title' is required")
 
+
+class Issue(BaseTask):
+    _description: str
+
+    def __init__(self, title, description):
+        self.title = title
+        self.description = description
+
+    @classmethod
+    def create_from_ticket(cls, ticket: Ticket):
+        return cls(ticket.title, ticket.description)
+
     @property
     def descripton(self):
         return self._description
@@ -39,15 +51,6 @@ class Issue(object):
             self._description = description_value
         else:
             raise ValueError("description: 'description' is required")
-
-
-    def __init__(self, title, description):
-        self.title = title
-        self.description = description
-
-    @classmethod
-    def create_from_ticket(cls, ticket: Ticket):
-        return cls(ticket.title, ticket.description)
 
 
 class Bug(Issue):
@@ -69,24 +72,12 @@ class Bug(Issue):
         }
 
 
-class Task():
-    _title: str
+class Task(BaseTask):
     _category: str
 
     def __init__(self, title, category):
         self.title = title
         self.category = category
-
-    @property
-    def title(self):
-        return self._title
-
-    @title.setter
-    def title(self, title_value):
-        if title_value and len(title_value):
-            self._title = title_value
-        else:
-            raise ValueError("title: 'title' is required")
 
     @property
     def category(self):
